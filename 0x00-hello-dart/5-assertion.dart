@@ -5,7 +5,7 @@ void main(List<String> args) {
 
     // Usa assert para verificar la condición del puntaje.
     // Si la aserción falla, Dart lanza una excepción automáticamente.
-    assert(score >= 80, "The score must be bigger or equal to 80");
+    assert(score >= 90, "The score must be bigger or equal to 80");
     print("You Passed");
   } on RangeError {
     // Captura el error si se intenta acceder a un elemento fuera de rango (es decir, no se pasaron argumentos).
