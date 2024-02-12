@@ -1,20 +1,11 @@
 void main(List<String> args) {
-  try {
-    // Intenta obtener el primer argumento y convertirlo a entero.
-    int score = int.parse(args[0]);
+  // Asumimos que el argumento se pasa como un string y necesitamos convertirlo a int.
+  int score = int.tryParse(args[0]) ?? 0; // Convierte el argumento a int, usa 0 como predeterminado si falla.
 
-    // Usa assert para verificar la condición del puntaje.
-    // Si la aserción falla, Dart lanza una excepción automáticamente.
-    assert(score >= 80, "The score must be bigger or equal to 80");
-    print("You Passed");
-  } on RangeError {
-    // Captura el error si se intenta acceder a un elemento fuera de rango (es decir, no se pasaron argumentos).
-    print("Error: No score provided. Please run the program with a score argument.");
-  } on FormatException {
-    // Captura el error si el argumento proporcionado no puede convertirse a int.
-    print("Invalid score: Please make sure you enter a valid number.");
-  } on AssertionError {
-    // Captura la aserción fallida para manejar puntajes menores a 80.
-    print("Uncaught Error: Assertion failed: The score must be bigger or equal to 80");
-  }
+  // Utiliza assert para verificar si el score es >= 80. 
+  // Si no es así, lanza un AssertionError con el mensaje deseado.
+  assert(score >= 80, 'The score must be bigger or equal to 80');
+
+  // Si el programa llega a este punto, significa que la aserción pasó.
+  print('You Passed');
 }
