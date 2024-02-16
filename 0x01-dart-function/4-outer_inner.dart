@@ -1,15 +1,16 @@
 void outer(String name, String id) {
   String inner() {
+    // Separa el nombre en palabras para obtener el primer nombre y el apellido
     List<String> parts = name.split(' ');
-    String firstNameInitial = parts[0][0]; // Obtiene la inicial del primer nombre
-    String lastName = parts[1]; // Obtiene el apellido completo
+    String firstName = parts[0];
+    String lastName = parts[1];
+    String lastNameInitial = lastName[0]; // Obtiene la inicial del apellido
 
-    return "Hello Agent $firstNameInitial.$lastName your id is $id";
+    // Construye y retorna el mensaje utilizando la inicial del apellido seguido del nombre completo
+    return "Hello Agent $lastNameInitial.$firstName your id is $id";
   }
 
+  // Imprime el resultado de llamar a la función 'inner'
   print(inner());
 }
 
-void main() {
-  outer("Youssef Belhadj", "001");
-}
