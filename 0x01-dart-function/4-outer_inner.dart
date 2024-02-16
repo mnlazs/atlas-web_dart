@@ -1,9 +1,12 @@
 void outer(String name, String id) {
-  // Función interna 'inner' definida dentro de 'outer'
   String inner() {
-    List<String> nameParts = name.split(' ');
-    return 'Name: ${nameParts[0]} ${nameParts[1]}, ID: $id';
+    List<String> parts = name.split(' ');
+    String firstNameInitial = parts[0][0]; // Obtiene la inicial del primer nombre
+    String lastName = parts[1]; // Obtiene el apellido completo
+
+    return "Hello Agent $firstNameInitial.$lastName your id is $id";
   }
+
   print(inner());
 }
 
