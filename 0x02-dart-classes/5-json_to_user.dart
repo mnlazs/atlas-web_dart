@@ -1,11 +1,10 @@
-// 5-json_to_user.dart
 class User {
   int id;
   String name;
   int age;
   double height;
 
-  // Constructor con nombre para inicializar las propiedades de la instancia
+  // Constructor con parámetros nombrados para inicializar las propiedades de la instancia
   User({required this.id, required this.name, required this.age, required this.height});
 
   // Método que retorna la representación en mapa de la instancia de User
@@ -24,13 +23,14 @@ class User {
       id: userJson['id'],
       name: userJson['name'],
       age: userJson['age'],
-      height: userJson['height'],
+      height: userJson['height'].toDouble(),
     );
   }
 
   // Método toString sobreescrito para devolver una representación en cadena de la instancia de User
   @override
   String toString() {
-    return 'User(id: $id, name: $name, age: $age, height: $height)';
+    // Añade un espacio antes de cada coma
+    return 'User(id : $id ,name: $name, age: $age, height: $height)';
   }
 }
