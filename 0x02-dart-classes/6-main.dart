@@ -1,6 +1,4 @@
 import '6-inheritance.dart';
-import '6-password.dart';
-
 
 void main() {
   final djo = User(
@@ -24,8 +22,8 @@ void main() {
   print('\n');
   print('<===========Test2===========>:');
   print('\n');
-  djo.user_password = Password(password: "holberton98");
-  youssef.user_password = Password(password: "AZERfghn6789");
+  djo.user_password = "holberton98";
+  youssef.user_password = "AZERfghn6789";
   print(djo.toString());
   print(youssef.toString());
 }
