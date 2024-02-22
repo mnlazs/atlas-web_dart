@@ -1,21 +1,26 @@
 import 'dart:convert';
 
 Future<bool> checkCredentials() => 
-    Future.delayed(const Duration(seconds: 2), () => true);
+    Future.delayed(const Duration(seconds: 2), () => false);
 
 Future<String> loginUser() async {
   try {
     bool isUserValid = await checkCredentials();
-    print('There is a user: $isUserValid');
     if (isUserValid) {
+      // Usuario válido, procede a saludar al usuario
+      print('There is a user: true');
       return await greetUser();
     } else {
+      // Credenciales incorrectas, retorna el mensaje correspondiente
+      print('There is a user: false');
       return 'Wrong credentials';
     }
   } catch (error) {
+    // Maneja cualquier error que pueda ocurrir en el proceso
     return 'error caught: $error';
   }
 }
+
 
 
 Future<String> fetchUserData() => Future.delayed(
