@@ -1,52 +1,36 @@
-import '4-utils.dart';
 import 'dart:convert';
+import '4-utils.dart';
 
-Future<String> fetchUserData() => Future.delayed(
-      const Duration(seconds: 2),
-      () => '{"id" : "7ee9a243-01ca-47c9-aa14-0149789764c3", "username" : "admin"}',
-    );
-
-Future<String> fetchUserOrders(String id) async {
-  var orders = {
-    "7ee9a243-01ca-47c9-aa14-0149789764c3": ["pizza", "orange"]
-  };
-  return Future.delayed(const Duration(seconds: 2), () => json.encode(orders[id]));
-}
-
-// Simula la obtención del precio de un producto.
-Future<String> fetchProductPrice(String product) async {
-  var products = {"pizza": 20.30, "orange": 10, "water": 5, "soda": 8.5};
-  return Future.delayed(const Duration(seconds: 2), () => products[product].toString());
-}
-
-// Calcula el precio total de los ítems para un usuario.
 Future<double> calculateTotal() async {
   try {
-    // Obtiene y decodifica los datos del usuario.
-    final userDataJson = await fetchUserData();
-    final userData = json.decode(userDataJson);
+    // Obtiene los datos del usuario.
+    final String userDataJson = await fetchUserData();
+    final Map<String, dynamic> userData = json.decode(userDataJson);
     final String userId = userData['id'];
 
-    // Obtiene y decodifica las órdenes del usuario.
-    final userOrdersJson = await fetchUserOrders(userId);
+    // Obtiene las órdenes del usuario.
+    final String userOrdersJson = await fetchUserOrders(userId);
     final List<dynamic> userOrders = json.decode(userOrdersJson);
 
     double totalPrice = 0.0;
 
-    // Itera sobre las órdenes para obtener los precios de los productos.
-    for (String product in userOrders) {
-      final String productPriceString = await fetchProductPrice(product);
-      final double productPrice = double.parse(productPriceString);
+    // Itera sobre cada producto en las órdenes del usuario para obtener su precio.
+    for (var product in userOrders) {
+      final String productPriceJson = await fetchProductPrice(product);
+      final double productPrice = json.decode(productPriceJson);
       totalPrice += productPrice;
     }
 
+    // Retorna el precio total de los ítems.
     return totalPrice;
   } catch (error) {
+    // Si ocurre un error en cualquier parte del proceso, retorna -1.
     print('error caught: $error');
-    return -1.0;  // Retorna -1 si ocurre un error.
+    return -1.0;
   }
 }
 
 void main() async {
-  print(await calculateTotal());
+  final total = await calculateTotal();
+  print(total);
 }
