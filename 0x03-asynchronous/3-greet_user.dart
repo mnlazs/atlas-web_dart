@@ -6,17 +6,16 @@ Future<bool> checkCredentials() =>
 Future<String> loginUser() async {
   try {
     bool isUserValid = await checkCredentials();
+    print('There is a user: $isUserValid');
     if (isUserValid) {
-      // Usuario válido, procede a saludar al usuario
-      print('There is a user: true');
-      return await greetUser();
+      // Si las credenciales son válidas, imprime y retorna el saludo al usuario.
+      return await greetUser();  // Debería imprimir "Hello admin"
     } else {
-      // Credenciales incorrectas, retorna el mensaje correspondiente
-      print('There is a user: false');
+      // Si las credenciales son inválidas, imprime y retorna "Wrong credentials".
       return 'Wrong credentials';
     }
   } catch (error) {
-    // Maneja cualquier error que pueda ocurrir en el proceso
+    // Manejo de errores
     return 'error caught: $error';
   }
 }
