@@ -1,39 +1,36 @@
+// Importa las funciones necesarias de otro archivo si es necesario
+import '3-util.dart';
 import 'dart:convert';
 
-Future<bool> checkCredentials() => 
-    Future.delayed(const Duration(seconds: 2), () => false);
-
-Future<String> loginUser() async {
+Future<String> greetUser() async {
   try {
-    bool isUserValid = await checkCredentials();
-    print('There is a user: $isUserValid');
-    if (isUserValid) {
-      // Si las credenciales son válidas, imprime y retorna el saludo al usuario.
-      return await greetUser();  // Debería imprimir "Hello admin"
-    } else {
-      // Si las credenciales son inválidas, imprime y retorna "Wrong credentials".
-      return 'Wrong credentials';
-    }
+    // Simula la obtención de datos del usuario
+    final String userDataJson = await fetchUserData();
+    // Convierte la cadena JSON en un objeto Dart (p.ej., un Map)
+    final Map<String, dynamic> userData = json.decode(userDataJson);
+    // Retorna el saludo con el nombre de usuario obtenido
+    return 'Hello ${userData['username']}';
   } catch (error) {
     // Manejo de errores
     return 'error caught: $error';
   }
 }
 
-
-
-Future<String> fetchUserData() => Future.delayed(
-      const Duration(seconds: 2),
-      () => '{"id" : "7ee9a243-01ca-47c9-aa14-0149789764c3", "username" : "admin"}',
-    );
-
-
-Future<String> greetUser() async {
+Future<String> loginUser() async {
   try {
-    String userDataJson = await fetchUserData();
-    Map<String, dynamic> userData = json.decode(userDataJson);
-    return 'Hello ${userData['username']}';
+    // Verifica las credenciales del usuario
+    final bool hasUser = await checkCredentials();
+    // Imprime y maneja el resultado de la verificación
+    print('There is a user: $hasUser');
+    if (hasUser) {
+      // Llama a greetUser y retorna su valor si las credenciales son correctas
+      return await greetUser();
+    } else {
+      // Retorna un mensaje de error si las credenciales son incorrectas
+      return 'Wrong credentials';
+    }
   } catch (error) {
+    // Manejo de errores
     return 'error caught: $error';
   }
 }
